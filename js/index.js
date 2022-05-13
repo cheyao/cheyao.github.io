@@ -1,6 +1,6 @@
-var number = 1;
+var number = 2;
 
-setInterval(function() {
-document.getElementById("money").innerHTML = "Money: " + number;
-number *= 2
-}, 1000)
+function money() {
+   number *= number
+   document.getElementById("Money").innerHTML = "Money: " + number
+}

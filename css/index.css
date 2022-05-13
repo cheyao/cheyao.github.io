@@ -1,3 +1,25 @@
 .center {
   text-align: center;
 }
+
+button.button {
+  background-color: White;
+  padding: 15px 25px;
+  border-radius: 15px;
+  box-shadow: 0 9px #999;
+  align: center;
+  border: 2px solid #fa1302;
+  font-size: 14px;
+  transition-duration: 0.5s;
+  float: middle;
+}
+
+button.button:hover {
+  background-color: #fa1302;
+}
+
+.button:active {
+  background-color: #3e8e41;
+  box-shadow: 0 5px #666;
+  transform: translateY(4px);
+}
