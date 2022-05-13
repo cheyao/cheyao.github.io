@@ -12,8 +12,8 @@ var painTimer = 0;
 var keySequence = 0;
 var failureCount = 0;
 var implosionCheck = 0;
-var TIER_NAMES = [ null, "first", "second", "third", "fourth", "fifth", "sixth", "seventh", "eight" ];
-var DISPLAY_NAMES = [ null, "First", "Second", "Third", "Fourth", "Fifth", "Sixth", "Seventh", "Eighth" ];
+var TIER_NAMES = [ null, "first", "second", "third", "fourth", "fifth", "sixth", "seventh", "eight", "nine" ];
+var DISPLAY_NAMES = [ null, "First", "Second", "Third", "Fourth", "Fifth", "Sixth", "Seventh", "Eighth", "Ninth"];
 var forceHardReset = false;
 var player = {
     money: new Decimal(10),
@@ -27,6 +27,7 @@ var player = {
     sixthCost: new Decimal(1e13),
     seventhCost: new Decimal(1e18),
     eightCost: new Decimal(1e24),
+    nineCost: new Decimal(1e30),
     firstAmount: new Decimal(0),
     secondAmount: new Decimal(0),
     thirdAmount: new Decimal(0),
@@ -39,10 +40,12 @@ var player = {
     sixthAmount: new Decimal(0),
     seventhAmount: new Decimal(0),
     eightAmount: new Decimal(0),
+    nineAmount: new Deciman(0),
     fifthBought: 0,
     sixthBought: 0,
     seventhBought: 0,
     eightBought: 0,
+    nineBrought: 0,
     firstPow: new Decimal(1),
     secondPow: new Decimal(1),
     thirdPow: new Decimal(1),
@@ -51,6 +54,7 @@ var player = {
     sixthPow: new Decimal(1),
     seventhPow: new Decimal(1),
     eightPow: new Decimal(1),
+    ninePow: new Decimal(1),
     sacrificed: new Decimal(0),
     achievements: [],
     infinityUpgrades: [],
@@ -712,6 +716,7 @@ function updateCosts() {
     document.getElementById("sixth").textContent = 'Cost: ' + shortenCosts(player.sixthCost);
     document.getElementById("seventh").textContent = 'Cost: ' + shortenCosts(player.seventhCost);
     document.getElementById("eight").textContent = 'Cost: ' + shortenCosts(player.eightCost);
+    document.getElementById("nine").textContent = 'Cost: ' + shortenCosts(player.nineCost);
 
     document.getElementById("firstMax").textContent = 'Until 10, Cost: ' + shortenCosts(player.firstCost.times(10 - dimBought(1)));
     document.getElementById("secondMax").textContent = 'Until 10, Cost: ' + shortenCosts(player.secondCost.times(10 - dimBought(2)));
@@ -721,6 +726,7 @@ function updateCosts() {
     document.getElementById("sixthMax").textContent = 'Until 10, Cost: ' + shortenCosts(player.sixthCost.times(10 - dimBought(6)));
     document.getElementById("seventhMax").textContent = 'Until 10, Cost: ' + shortenCosts(player.seventhCost.times(10 - dimBought(7)));
     document.getElementById("eightMax").textContent = 'Until 10, Cost: ' + shortenCosts(player.eightCost.times(10 - dimBought(8)));
+    document.getElementById("nineMax").textContent = 'Until 10, Cost: ' + shortenCosts(player.nineCost.times(10 - dimBought(9)));
 
     document.getElementById("tickSpeed").textContent = 'Cost: ' + shortenCosts(player.tickSpeedCost);
 
@@ -1609,6 +1615,7 @@ function setInitialDimensionPower () {
   player.sixthPow = getDimensionBoostPower().pow(player.resets - 5).max(1)
   player.seventhPow = getDimensionBoostPower().pow(player.resets - 6).max(1)
   player.eightPow = getDimensionBoostPower().pow(player.resets - 7).max(1)
+  player.ninePow = getDimensionBoostPower().pow(player.resets - 8).max(1)
 }
 
 function galaxyReset() {
@@ -1628,6 +1635,7 @@ function galaxyReset() {
         sixthCost: new Decimal(1e13),
         seventhCost: new Decimal(1e18),
         eightCost: new Decimal(1e24),
+        nineCost: new Decimal(1e10),
         firstAmount: new Decimal(0),
         secondAmount: new Decimal(0),
         thirdAmount: new Decimal(0),
@@ -1640,10 +1648,12 @@ function galaxyReset() {
         sixthAmount: new Decimal(0),
         seventhAmount: new Decimal(0),
         eightAmount: new Decimal(0),
+        nineAmount: new Decimal(0),
         fifthBought: 0,
         sixthBought: 0,
         seventhBought: 0,
         eightBought: 0,
+        nineBought: 0,
         firstPow: new Decimal(1),
         secondPow: new Decimal(1),
         thirdPow: new Decimal(1),
@@ -1652,6 +1662,7 @@ function galaxyReset() {
         sixthPow: new Decimal(1),
         seventhPow: new Decimal(1),
         eightPow: new Decimal(1),
+        ninePow: new Decimal(1),
         sacrificed: new Decimal(0),
         achievements: player.achievements,
         challenges: player.challenges,
@@ -1759,6 +1770,7 @@ function galaxyReset() {
         player.sixthCost = new Decimal(2e4)
         player.seventhCost = new Decimal(2e5)
         player.eightCost = new Decimal(4e6)
+        player.nineCost = new Decimal(5e2)
     }
 
     if (player.resets == 0 && player.currentChallenge == "") {
@@ -1798,6 +1810,7 @@ function galaxyReset() {
         document.getElementById("sixthRow").style.display = "none";
         document.getElementById("seventhRow").style.display = "none";
         document.getElementById("eightRow").style.display = "none";
+        document.getElementById("nineRow").style.display = "none";
     }
 
     if (player.galaxies >= 50) giveAchievement("YOU CAN GET 50 GALAXIES!??")
@@ -1957,6 +1970,7 @@ document.getElementById("reset").onclick = function () {
         document.getElementById("sixthRow").style.display = "none";
         document.getElementById("seventhRow").style.display = "none";
         document.getElementById("eightRow").style.display = "none";
+        document.getElementById("nineRow").style.display = "none";
         showDimTab('antimatterdimensions')
         updateTickSpeed();
         updateDimensions();
@@ -1982,6 +1996,7 @@ document.getElementById("reset").onclick = function () {
         document.getElementById("sixthRow").style.display = "none";
         document.getElementById("seventhRow").style.display = "none";
         document.getElementById("eightRow").style.display = "none";
+        document.getElementById("nineRow").style.display = "none";
         showDimTab('antimatterdimensions')
         updateTickSpeed();
         updateDimensions();
@@ -2150,7 +2165,7 @@ document.getElementById("newsbtn").onclick = function() {
 
 
 function resetDimensions() {
-    var tiers = [ null, "first", "second", "third", "fourth", "fifth", "sixth", "seventh", "eight" ];
+    var tiers = [ null, "first", "second", "third", "fourth", "fifth", "sixth", "seventh", "eight", "nine" ];
 
     for (i = 1; i <= 8; i++) {
         player[tiers[i] + "Amount"] = new Decimal(0)
@@ -2164,7 +2179,8 @@ function resetDimensions() {
     player.sixthCost = new Decimal(1e13)
     player.seventhCost = new Decimal(1e18)
     player.eightCost = new Decimal(1e24)
-    player.eightPow = new Decimal(player.chall11Pow)
+    player.nineCost = new Decimal(1e24)
+    player.ninePow = new Decimal(player.chall11Pow)
 }
 
 function calcSacrificeBoost() {
@@ -2203,13 +2219,13 @@ function calcTotalSacrificeBoost() {
 
 
 function sacrifice(auto = false) {
-    if (player.eightAmount == 0) return false;
+    if (player.nineAmount == 0) return false;
     if (player.resets < 5) return false
     if (player.currentEternityChall == "eterc3") return false
     if (player.currentChallenge == "challenge11" && (calcTotalSacrificeBoost().gte(Number.MAX_VALUE) || player.chall11Pow.gte(Number.MAX_VALUE))) return false
-    if (!auto) floatText("eightD", "x" + shortenMoney(calcSacrificeBoost()))
+    if (!auto) floatText("nineD", "x" + shortenMoney(calcSacrificeBoost()))
     if (calcSacrificeBoost().gte(Number.MAX_VALUE)) giveAchievement("Yet another infinity reference");
-    player.eightPow = player.eightPow.times(calcSacrificeBoost())
+    player.ninePow = player.ninePow.times(calcSacrificeBoost())
     player.sacrificed = player.sacrificed.plus(player.firstAmount);
     if (player.currentChallenge != "challenge11") {
         if (player.currentChallenge == "challenge7" && !player.achievements.includes("r118")) clearDimensions(6);
@@ -2229,7 +2245,7 @@ function sacrifice(auto = false) {
 
 document.getElementById("sacrifice").onclick = function () {
     if (!document.getElementById("confirmation").checked) {
-        if (!confirm("Dimensional Sacrifice will remove all of your first to seventh dimensions (with the cost and multiplier unchanged) for a boost to Eighth Dimension. It will take time to regain production.")) {
+        if (!confirm("Dimensional Sacrifice will remove all of your first to seventh dimensions (with the cost and multiplier unchanged) for a boost to Ninth Dimension. It will take time to regain production.")) {
             return false;
         }
     }
@@ -2854,6 +2870,7 @@ document.getElementById("bigcrunch").onclick = function () {
             sixthCost: new Decimal(1e13),
             seventhCost: new Decimal(1e18),
             eightCost: new Decimal(1e24),
+            nineCost: new Decimal(1e30),
             firstAmount: new Decimal(0),
             secondAmount: new Decimal(0),
             thirdAmount: new Decimal(0),
@@ -2866,10 +2883,12 @@ document.getElementById("bigcrunch").onclick = function () {
             sixthAmount: new Decimal(0),
             seventhAmount: new Decimal(0),
             eightAmount: new Decimal(0),
+            nineAmount: new Decimal(0),
             fifthBought: 0,
             sixthBought: 0,
             seventhBought: 0,
             eightBought: 0,
+            nineBrought: 0,
             firstPow: new Decimal(1),
             secondPow: new Decimal(1),
             thirdPow: new Decimal(1),
@@ -3020,6 +3039,7 @@ document.getElementById("bigcrunch").onclick = function () {
             document.getElementById("sixthRow").style.display = "none";
             document.getElementById("seventhRow").style.display = "none";
             document.getElementById("eightRow").style.display = "none";
+            document.getElementById("nineRow").style.display = "none";
         }
         document.getElementById("matter").style.display = "none";
         document.getElementById("quickReset").style.display = "none";
@@ -3151,6 +3171,7 @@ function eternity(force, auto) {
             sixthCost: new Decimal(1e13),
             seventhCost: new Decimal(1e18),
             eightCost: new Decimal(1e24),
+            nineCost: new Decimal(1e30),
             firstAmount: new Decimal(0),
             secondAmount: new Decimal(0),
             thirdAmount: new Decimal(0),
@@ -3163,10 +3184,12 @@ function eternity(force, auto) {
             sixthAmount: new Decimal(0),
             seventhAmount: new Decimal(0),
             eightAmount: new Decimal(0),
+            nineAmount: new Decimal(0),
             fifthBought: 0,
             sixthBought: 0,
             seventhBought: 0,
             eightBought: 0,
+            nineBought: 0,
             firstPow: new Decimal(1),
             secondPow: new Decimal(1),
             thirdPow: new Decimal(1),
@@ -3175,6 +3198,7 @@ function eternity(force, auto) {
             sixthPow: new Decimal(1),
             seventhPow: new Decimal(1),
             eightPow: new Decimal(1),
+            ninePow: new Decimal(1),
             sacrificed: new Decimal(0),
             achievements: player.achievements,
             challenges: (player.eternities > 0 && player.achievements.includes("r133")) ? ["challenge1", "challenge2", "challenge3", "challenge4", "challenge5", "challenge6", "challenge7", "challenge8", "challenge9", "challenge10", "challenge11", "challenge12", "postc1", "postc2", "postc3", "postc4", "postc5", "postc6", "postc7", "postc8"] : (player.eternities > 0) ? ["challenge1", "challenge2", "challenge3", "challenge4", "challenge5", "challenge6", "challenge7", "challenge8", "challenge9", "challenge10", "challenge11", "challenge12"] : [],
@@ -3367,6 +3391,7 @@ function eternity(force, auto) {
             document.getElementById("sixthRow").style.display = "none";
             document.getElementById("seventhRow").style.display = "none";
             document.getElementById("eightRow").style.display = "none";
+            document.getElementById("nineRow").style.display = "none";
         }
         document.getElementById("matter").style.display = "none";
         document.getElementById("quickReset").style.display = "none";
@@ -3462,6 +3487,7 @@ function startChallenge(name, target) {
         sixthCost: new Decimal(1e13),
         seventhCost: new Decimal(1e18),
         eightCost: new Decimal(1e24),
+        nineCost: new Decimal(1e30),
         firstAmount: new Decimal(0),
         secondAmount: new Decimal(0),
         thirdAmount: new Decimal(0),
@@ -3474,10 +3500,12 @@ function startChallenge(name, target) {
         sixthAmount: new Decimal(0),
         seventhAmount: new Decimal(0),
         eightAmount: new Decimal(0),
+        nineAmount: new Decimal(0),
         fifthBought: 0,
         sixthBought: 0,
         seventhBought: 0,
         eightBought: 0,
+        nineBought: 0,
         firstPow: new Decimal(1),
         secondPow: new Decimal(1),
         thirdPow: new Decimal(1),
@@ -3486,6 +3514,7 @@ function startChallenge(name, target) {
         sixthPow: new Decimal(1),
         seventhPow: new Decimal(1),
         eightPow: new Decimal(1),
+        ninePow: new Decimal(1),
         sacrificed: new Decimal(0),
       achievements: player.achievements,
       challenges: player.challenges,
@@ -3592,6 +3621,7 @@ function startChallenge(name, target) {
         player.sixthCost = new Decimal(2e4)
         player.seventhCost = new Decimal(2e5)
         player.eightCost = new Decimal(4e6)
+        player.nineCost = new Decimal(5e4)
     }
     if (player.currentChallenge == "postc1") player.costMultipliers = [new Decimal(1e3),new Decimal(5e3),new Decimal(1e4),new Decimal(1.2e4),new Decimal(1.8e4),new Decimal(2.6e4),new Decimal(3.2e4),new Decimal(4.2e4)];
     if (player.currentChallenge == "postc2") {
@@ -3626,6 +3656,7 @@ function startChallenge(name, target) {
     document.getElementById("sixthRow").style.display= "none";
     document.getElementById("seventhRow").style.display= "none";
     document.getElementById("eightRow").style.display= "none";
+    document.getElementById("nineRow").style.display= "none";
     if (name == "challenge12" || player.currentChallenge == "postc1" || player.currentChallenge == "postc6") document.getElementById("matter").style.display = "block";
     else document.getElementById("matter").style.display = "none";
 
@@ -3951,6 +3982,7 @@ function startEternityChallenge(name, startgoal, goalIncrease) {
             sixthCost: new Decimal(1e13),
             seventhCost: new Decimal(1e18),
             eightCost: new Decimal(1e24),
+            nineCost: new Decimal(1e24),
             firstAmount: new Decimal(0),
             secondAmount: new Decimal(0),
             thirdAmount: new Decimal(0),
@@ -3963,10 +3995,12 @@ function startEternityChallenge(name, startgoal, goalIncrease) {
             sixthAmount: new Decimal(0),
             seventhAmount: new Decimal(0),
             eightAmount: new Decimal(0),
+            nineAmount: new Decimal(0),
             fifthBought: 0,
             sixthBought: 0,
             seventhBought: 0,
             eightBought: 0,
+            nineBought: 0,
             firstPow: new Decimal(1),
             secondPow: new Decimal(1),
             thirdPow: new Decimal(1),
@@ -3975,6 +4009,7 @@ function startEternityChallenge(name, startgoal, goalIncrease) {
             sixthPow: new Decimal(1),
             seventhPow: new Decimal(1),
             eightPow: new Decimal(1),
+            ninePow: new Decimal(1),
             sacrificed: new Decimal(0),
             achievements: player.achievements,
             challenges: (player.eternities > 0 && player.achievements.includes("r133")) ? ["challenge1", "challenge2", "challenge3", "challenge4", "challenge5", "challenge6", "challenge7", "challenge8", "challenge9", "challenge10", "challenge11", "challenge12", "postc1", "postc2", "postc3", "postc4", "postc5", "postc6", "postc7", "postc8"] : (player.eternities > 0) ? ["challenge1", "challenge2", "challenge3", "challenge4", "challenge5", "challenge6", "challenge7", "challenge8", "challenge9", "challenge10", "challenge11", "challenge12"] : [],
@@ -4163,6 +4198,7 @@ function startEternityChallenge(name, startgoal, goalIncrease) {
         document.getElementById("sixthRow").style.display = "none";
         document.getElementById("seventhRow").style.display = "none";
         document.getElementById("eightRow").style.display = "none";
+        document.getElementById("nineRow").style.display = "none";
         document.getElementById("matter").style.display = "none";
         document.getElementById("quickReset").style.display = "none";
         var autobuyers = document.getElementsByClassName('autoBuyerDiv')
