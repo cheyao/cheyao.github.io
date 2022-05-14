@@ -3,16 +3,6 @@
     font-size: 80px;
 }
 
-body, html {
-	--color-tiktok-blue: rgb(111, 239, 233);
-	--color-mint: rgb(197, 246, 207);
-	--color-mint-dark: rgb(98, 240, 153);
-	--fold-slide-duration: 1000ms;
-	--fold-slide-delay: 0ms;
-	--fold-duration: 1500ms;
-	--fold-delay: 200ms;
-}
-
 spam.e {
     font-weight: 900;
     transition-duration: 0.5s;
