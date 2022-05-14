@@ -3,11 +3,11 @@
     font-size: 80px;
 }
 
-span.e {
+span.shadow {
     transition-duration: 0.5s;
 }
 
-span.e:hover {
+span.shadow:hover {
     text-shadow: 15px 10px rgba(255, 17, 0, 0.7), -15px 4px rgba(120, 73, 230, 0.7), 6px -18px rgba(9, 224, 74, 0.7);
 }
 span.glow {
