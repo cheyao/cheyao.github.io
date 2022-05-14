@@ -3,6 +3,10 @@
     font-size: 80px;
 }
 
+span {
+  font-size: 90px;
+}
+
 span.shadow {
     transition-duration: 0.5s;
 }
