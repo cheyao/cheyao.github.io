@@ -1,25 +1,30 @@
-.center {
-  text-align: center;
+* {
+    text-align: center;
+    font-size: 80px;
 }
 
-button.button {
-  background-color: White;
-  padding: 15px 25px;
-  border-radius: 15px;
-  box-shadow: 0 9px #999;
-  align: center;
-  border: 2px solid #fa1302;
-  font-size: 14px;
-  transition-duration: 0.5s;
-  float: middle;
+body, html {
+	--color-tiktok-blue: rgb(111, 239, 233);
+	--color-mint: rgb(197, 246, 207);
+	--color-mint-dark: rgb(98, 240, 153);
+	--fold-slide-duration: 1000ms;
+	--fold-slide-delay: 0ms;
+	--fold-duration: 1500ms;
+	--fold-delay: 200ms;
 }
 
-button.button:hover {
-  background-color: #fa1302;
+spam.e {
+    font-weight: 900;
+    transition-duration: 0.5s;
 }
 
-.button:active {
-  background-color: #3e8e41;
-  box-shadow: 0 5px #666;
-  transform: translateY(4px);
+spam.e:hover {
+    text-shadow: 15px 10px rgba(255, 17, 0, 0.7), -15px 4px rgba(120, 73, 230, 0.7), 6px -18px rgba(9, 224, 74, 0.7);
+}
+spam.glow {
+    transition-duration: 0.5s;
+}
+
+spam.glow:hover {
+    text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fa0202, 0 0 40px #fa0202, 0 0 50px #fa0202, 0 0 60px #fa0202, 0 0 70px #fa0202;
 }
