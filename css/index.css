@@ -3,18 +3,28 @@
     font-size: 80px;
 }
 
-spam.e {
-    font-weight: 900;
+span.e {
     transition-duration: 0.5s;
 }
 
-spam.e:hover {
+span.e:hover {
     text-shadow: 15px 10px rgba(255, 17, 0, 0.7), -15px 4px rgba(120, 73, 230, 0.7), 6px -18px rgba(9, 224, 74, 0.7);
 }
-spam.glow {
+span.glow {
     transition-duration: 0.5s;
 }
 
-spam.glow:hover {
+span.glow:hover {
     text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fa0202, 0 0 40px #fa0202, 0 0 50px #fa0202, 0 0 60px #fa0202, 0 0 70px #fa0202;
+}
+
+span.flip {
+    transition-duration: 10s;
+}
+
+span.flip:hover {
+    transform: rotate(10800deg);
+    -ms-transform: rotate(10800deg);
+    -webkit-transform: rotate(10800deg);
+    display: inline-block;
 }
