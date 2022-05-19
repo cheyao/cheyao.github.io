@@ -48,4 +48,10 @@ button.nav::after {
   text-align: center;
   color: White;
   background-size: 100% 100%;
+  font: 500 72px/70px "gibson";
+}
+
+h1.title {
+  font-size: 30px;
+  line-height: 30px;
 }
