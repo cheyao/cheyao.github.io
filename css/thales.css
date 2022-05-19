@@ -4,17 +4,17 @@ footer {
   text-align: center;
 }
 
-ul.nav li.nav{
+li.nav{
   display: inline;
 }
 
-nav {
+ul.nav {
   background-color: rgb(12, 13, 40);
   margin: 0px;
 }
 
-html, body {
-    margin: 0;
+body {
+  margin: 0;
 }
 
 button.nav {
@@ -22,7 +22,7 @@ button.nav {
   background-color: rgb(12, 13, 40);
   color: LightGray;
   border-right: 0.5px solid #5e5e5e;
-  padding: 10px;
+  padding: 13px;
 }
 
 button.end {
@@ -36,9 +36,9 @@ button.nav:hover::after {
 button.nav::after {
   display:block;
   content: '';
-  border-bottom: solid 3px #019fb6;
+  border-bottom: solid 5px #019fb6;
   transform: scaleX(0);
-  transition: transform 250ms ease-in-out;
+  transition: 250ms ease-in-out;
 }
 
 .DIS_title {
