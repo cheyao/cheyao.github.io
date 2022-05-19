@@ -8,10 +8,13 @@ ul.nav li.nav{
   display: inline;
 }
 
-header {
+nav {
   background-color: rgb(12, 13, 40);
-  margin-right: 0px;
-  margin-left: 0px;
+  margin: 0px;
+}
+
+html, body {
+    margin: 0;
 }
 
 button.nav {
@@ -36,4 +39,13 @@ button.nav::after {
   border-bottom: solid 3px #019fb6;
   transform: scaleX(0);
   transition: transform 250ms ease-in-out;
+}
+
+.DIS_title {
+  background-image: url('../resources/DIS_background.jpg');
+  padding-top: 199px;
+  padding-bottom: 199px;
+  text-align: center;
+  color: White;
+  background-size: 100% 100%;
 }
