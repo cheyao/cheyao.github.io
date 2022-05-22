@@ -1,0 +1,19 @@
+div {
+  text-align: center;
+  cursor: progress;
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+body {
+  cursor: progress;
+  background-color: rgb(108, 108, 108);
+}
+
+picture {
+  padding-top: 0px;
+  padding-bottom: 0px;
+}

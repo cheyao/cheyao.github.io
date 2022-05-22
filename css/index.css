@@ -3,6 +3,7 @@
     font-size: 30px;
 }
 
-a:link a:visited {
-  color: red;
+a {
+  color: blue;
+  text-decoration: none;
 }
