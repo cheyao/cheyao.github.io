@@ -1,0 +1,16 @@
+body {
+    background-color: #EEEEEE;
+    padding-left: 5pt;
+    padding-right: 5pt;
+}
+
+*{font-family: 'Fira Code', sans-serif;}
+
+header>h1 {
+    color: rgb(0, 147, 25);
+    font-size: 20pt;
+}
+
+div.main {
+    border: 1px solid black;
+}
