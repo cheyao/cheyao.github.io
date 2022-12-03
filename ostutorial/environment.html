@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<head>
+    <link rel="stylesheet" type="text/css" href="../styles/template.css">
+    <link href="https://fonts.googleapis.com/css?family=Fira+Code" rel="stylesheet">
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-D60T9JB9VF"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+    
+      gtag('config', 'G-D60T9JB9VF');
+    </script>
+</head>
+<body>
+    <header>
+        <h1>Cyao's page</h1>
+        <p class="home"><a href="../index.html">Home</a></p>
+    </header>
+    <div class="main">
+        <h1 class="title">1. Environment</h1>
+        <div class="contents" style="float: right;">
+            <ol>
+                <li><a href="environment.html">Environment</a></li>
+            </ol>
+        </div>
+
+        <p>We need to setup a environment to begin developing our OS, here I am on macOS, so there might be errors with the toolchain in other OSes.</p>
+        <p>If you are using windows, I strongly recommend you to switch to linux or get a macbook.</p>
+        <p>On macOS, we need to install Homebrew as our package manager by pasting <code>/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"</code> into your terminal.</p>
+        
+        <h2>Nasm</h2>
+        <hr>
+        <p>For the assembler, we will use nasm as I am the most familiar with it, install it with your package manager, on macos it is like:</p>
+        <div class="code">brew install nasm</div>
+        <p>If this doesn't work or your distro doesn't have a package manager, download nasm from <a href="https://www.nasm.us/pub/nasm/releasebuilds/2.15.05/">here</a>.</p>
+        <h2>Gcc toolchain</h2>
+        <hr>
+        <p>For the C compiler, we will use x86_64-elf-gcc and x86_64-elf-binutils, install it with your package manager, on macos it is like:</p>
+        <div class="code">brew install x86_64-elf-gcc x86_64-elf-binutils</div>
+        <p>If you don't have a package manager or it doesn't work you can compile it by your self, following <a href="https://wiki.osdev.org/GCC_Cross-Compiler#Preparing_for_the_build">this article</a>, just change <code>export TARGET=i686-elf</code> to <code>export TARGET=x86_64-elf</code>.</p>
+        <p>Note: x86_64-elf-gcc/binutils is not the same as i686-elf-gcc/binutils or your OS's native gcc/binutils.</p>
+        <h2>Gcc toolchain</h2>
+        <hr>
+        <p>For the emulator, we will use qemu, install it with your package manager:</p>
+        <div class="code">brew install qemu</div>
+        <p>Or compile it following <a href="https://www.qemu.org/download/#source">here</a>.</p>
+        <p style="float: left !important;display: inline;"><a href="index.html">Back</a></p>
+        <p style="float: right !important;display: inline;"><a href="boot.html">Next</a></p>
+    </div>
+</body>

@@ -1,5 +1,5 @@
 body {
-    background-color: #EEEEEE;
+    background-color: #1b1b1b;
     padding-left: 5pt;
     padding-right: 5pt;
 }
@@ -7,10 +7,79 @@ body {
 *{font-family: 'Fira Code', sans-serif;}
 
 header>h1 {
-    color: rgb(0, 147, 25);
+    color: white;
     font-size: 20pt;
 }
 
 div.main {
+    color: white;
     border: 1px solid black;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-bottom: 10px;
+    background-color: #1b1b1b;
+}
+
+.title {
+    color: white;
+}
+
+.contents {
+    border: 1px solid black;
+    padding-left: 10px;
+    padding-right: 10px;
+    color: #f9f9f9;
+    margin-right: 5px;
+}
+
+div.contents>ol {
+    color:white;
+}
+
+.code {
+    background: #343434;
+    border: 1px solid transparent;
+    padding: 1rem 2.5rem 1rem 1rem;
+    border-radius: 0.25rem;
+    margin: 1rem 0 1rem;
+    size: 0.833rem;
+    width: auto;
+}
+
+h2 {
+    margin-top: 2rem;
+}
+
+p {
+    margin-bottom: 1rem;
+    size: 0.833rem;
+}
+
+a {
+    color: #8cb4ff;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+.home {
+    margin: 0;
+    margin-bottom: 5px;
+    font-size: 20px;
+}
+
+code {
+    background-color: #343434;
+    padding: .125rem .25rem;
+    border-radius: 0.25rem;
+}
+
+.end {
+    display: inline;
+    float: right !important;
+}
+
+.end-div {
+    width: 100%;
 }
