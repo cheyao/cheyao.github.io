@@ -45,7 +45,7 @@
         </div>
 
         <p><code>org 0x7C00</code> tells nasm that out code will be placed at 0x7C00</p>
-        <p>The <code>jmp</code> is a <a href="https://simple.wikipedia.org/wiki/Instruction_(computer_science)">computer instruction</a> that tells the cpu to jump to the memory position specified after it, so for example <code>jmp 5</code> is to tell the cpu to go to the memory position 5, and start executing from there. 
+        <p>The <code>jmp</code> is a <a href="https://simple.wikipedia.org/wiki/Instruction_(computer_science)">computer instruction</a> (<a href="https://c9x.me/x86/">here is a list of instructions</a>) that tells the cpu to jump to the memory position specified after it, so for example <code>jmp 5</code> is to tell the cpu to go to the memory position 5, and start executing from there. 
         <code>$</code> is a special token, and nasm will replace it with the current position, so the code <code>jmp $</code> means to jump to the current position, which means the cpu will go into a dead loop.</p>
 
         <p>The <code>$$</code> in <code>times 510 - ($ - $$) db 0</code> is also a special token, which means the start position of the code, this code lets nasm to fill the rest of the file with zeros.</p>
