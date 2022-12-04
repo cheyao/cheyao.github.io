@@ -39,7 +39,7 @@ div.contents>ol {
 }
 
 .code {
-    background: #343434;
+    background: rgb(40, 44, 52);
     border: 1px solid transparent;
     padding: 1rem 2.5rem 1rem 1rem;
     border-radius: 0.25rem;
@@ -84,4 +84,24 @@ code {
 
 .end-div {
     width: 100%;
+}
+
+span.comment {
+    color: #5C6370;
+}
+
+span.int {
+    color: #D19A66;
+}
+
+span.string {
+    color: #98C379;
+}
+
+span.keyword {
+    color: #C678DD;
+}
+
+span.function {
+    color: #61AFEF;
 }
