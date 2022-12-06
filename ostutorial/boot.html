@@ -38,11 +38,11 @@
         <p>Create a directory called <code>boot</code> and a file inside it called <code>bootsector.asm</code> and paste the following code into it:</p>
 
         <div class="code asm">
-        org 0x7C00<br>
-        jmp $<br>
-        <br>
-        times 510 - ($ - $$) db 0 ; Fill with 510 zeros minus the size of the previous code<br>
-        dw 0xaa55 ; The magic number
+            <span class="keyword">org</span> <span class="int">0x7C00</span><br>
+            <span class="keyword">jmp</span> $<br>
+            <br>
+            <span class="keyword">times</span> <span class="int">510</span> - ($ - $$) <span class="keyword">db</span> <span class="int">0</span> <span class="comment">; Fill with 510 zeros minus the size of the previous code</span><br>
+            <span class="keyword">dw</span> <span class="int">0xaa55</span> <span class="comment">; The magic number</span>
         </div>
 
         <p><code>org 0x7C00</code> tells nasm that out code will be placed at 0x7C00</p>
@@ -55,12 +55,12 @@
         <h2>Testing the code</h2>
         <hr>
         <p>Let's test our code!</p>
-        <p>Since booting on a real computer is very inconvenient and you probably don't have a spare computer (like me), we will use a <a href="https://en.wikipedia.org/wiki/Emulator">emulator.</a></p>
+        <p>Since booting on a real computer is very inconvenient, and you probably don't have a spare computer (like me), we will use a <a href="https://en.wikipedia.org/wiki/Emulator">emulator.</a></p>
 
         <p>First, we need to compile the assembly into <a href="https://en.wikipedia.org/wiki/Binary_code">binary codes</a> (or called opcodes), to do this, we'll use the command <code>nasm -o bootsect.bin boot/bootsect.asm</code>, paste it into the terminal (while you are inside the project's root directory).</p>
         <p>Now we'll emulate the computer with <code>qemu-system-x86_64 bootsect.bin</code>, you should see a window appear that has a blinking cursor on it (<a href="boot.gif">like this</a>), that means we have successfully made a bootable disk!</p>
 
-        <p style="float: left !important;display: inline;"><a href="enviroment.html">Back</a></p>
+        <p style="float: left !important;display: inline;"><a href="environment.html">Back</a></p>
         <p style="float: right !important;"><a href="printing_a_char.html">Next</a></p>
     </div>
     <br>

@@ -35,32 +35,31 @@
         <h2>Interrupts</h2>
         <hr>
         <p>When the computer boots, the BIOS initializes some <a href="https://en.wikipedia.org/wiki/BIOS_interrupt_call">standard interrupts</a> (<a href="http://www.ctyme.com/intr/int.htm">Here is a full list of interrupts</a>).</p>
-        <p><a href="http://www.ctyme.com/intr/rb-0106.htm">int 0x10</a> is the interrupt for video services, the <code>ah</code> <a href="https://wiki.osdev.org/CPU_Registers_x86-64">register</a> represents the function code, what we want to use, is <a href="http://www.ctyme.com/intr/rb-0106.htm">int 0x10, ah = 0x0E</a>
+        <p><a href="https://www.ctyme.com/intr/rb-0106.htm">int 0x10</a> is the interrupt for video services, the <code>ah</code> <a href="https://wiki.osdev.org/CPU_Registers_x86-64">register</a> represents the function code, what we want to use, is <a href="http://www.ctyme.com/intr/rb-0106.htm">int 0x10, ah = 0x0E</a>
         which is teletype output</p>
 
         <h2>Implementing</h2>
         <hr>
         <p>In the interrupt function, al is containing the <a href="https://en.wikipedia.org/wiki/ASCII">ascii code</a> of the letter, we can get the ascii by putting a character inside apostrophes. Now this is our boot/bootsect.asm:</p>
         <div class="code">
-        org 0x7C00<br>
-        mov ah, 0x0e<br>
-        <br>
-        mov al, 'H'<br>
-        int 0x10<br>
-        mov al, 'e'<br>
-        int 0x10<br>
-        mov al, 'l'<br>
-        int 0x10<br>
-        mov al, 'l'<br>
-        int 0x10<br>
-        mov al, 'o'<br>
-        int 0x10<br>
-        <br>
-        jmp $<br>
-        <br>
-        times 510 - ($ - $$) db 0 ; Fill with 510 zeros minus the size of the previous code<br>
-        dw 0xaa55 ; The magic number
-            
+            <span class="keyword">org</span> <span class="int">0x7C00</span><br>
+            <span class="keyword">mov</span> ah, <span class="int">0x0e</span><br>
+            <br>
+            <span class="keyword">mov</span> al, <span class="string">'H'</span><br>
+            <span class="keyword">int</span> <span class="int">0x10</span><br>
+            <span class="keyword">mov</span> al, <span class="string">'e'</span><br>
+            <span class="keyword">int</span> <span class="int">0x10</span><br>
+            <span class="keyword">mov</span> al, <span class="string">'l'</span><br>
+            <span class="keyword">int</span> <span class="int">0x10</span><br>
+            <span class="keyword">mov</span> al, <span class="string">'l'</span><br>
+            <span class="keyword">int</span> <span class="int">0x10</span><br>
+            <span class="keyword">mov</span> al, <span class="string">'o'</span><br>
+            <span class="keyword">int</span> <span class="int">0x10</span><br>
+            <br>
+            <span class="keyword">jmp</span> $<br>
+            <br>
+            <span class="keyword">times</span> <span class="int">510</span> - ($ - $$) <span class="keyword">db</span> <span class="int">0</span> <span class="comment">; Fill with 510 zeros minus the size of the previous code</span><br>
+            <span class="keyword">dw</span> <span class="int">0xaa55</span> <span class="comment">; The magic number</span>
         </div>
         <p>The <code>mov</code> instruction moves the value in the second argument to the register in the first register.</p>
 

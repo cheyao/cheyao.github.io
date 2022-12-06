@@ -28,7 +28,7 @@
             </ol>
         </div>
 
-        <p>We need to setup a environment to begin developing our OS, here I am on macOS, so there might be errors with the toolchain in other OSes.</p>
+        <p>We need to set up an environment to begin developing our OS, here I am on macOS, so there might be errors with the toolchain in other OSes.</p>
         <p>If you are using windows, I strongly recommend you to switch to linux or get a macbook.</p>
         <p>On macOS, we need to install Homebrew as our package manager by pasting <code>/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"</code> into your terminal.</p>
         
@@ -41,7 +41,7 @@
         <hr>
         <p>For the C compiler, we will use x86_64-elf-gcc and x86_64-elf-binutils, install it with your package manager, on macos it is like:</p>
         <div class="code">brew install x86_64-elf-gcc x86_64-elf-binutils</div>
-        <p>If you don't have a package manager or it doesn't work you can compile it by your self, following <a href="https://wiki.osdev.org/GCC_Cross-Compiler#Preparing_for_the_build">this article</a>, just change <code>export TARGET=i686-elf</code> to <code>export TARGET=x86_64-elf</code>.</p>
+        <p>If you don't have a package manager, or it doesn't work you can compile it by your self, following <a href="https://wiki.osdev.org/GCC_Cross-Compiler#Preparing_for_the_build">this article</a>, just change <code>export TARGET=i686-elf</code> to <code>export TARGET=x86_64-elf</code>.</p>
         <p>Note: x86_64-elf-gcc/binutils is not the same as i686-elf-gcc/binutils or your OS's native gcc/binutils.</p>
         <h2>Gcc toolchain</h2>
         <hr>
