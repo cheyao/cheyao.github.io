@@ -32,6 +32,11 @@ div.main {
     color: #f9f9f9;
     margin-right: 5px;
     border-radius: 0.25rem;
+    background-color: rgb(24, 26, 27)
+}
+
+pre {
+    margin: 0;
 }
 
 div.contents>ol {
@@ -66,8 +71,7 @@ a:hover {
 }
 
 .home {
-    margin: 0;
-    margin-bottom: 5px;
+    margin: 0 0 5px;
     font-size: 20px;
 }
 

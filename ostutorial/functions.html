@@ -41,13 +41,13 @@
         <p>The <a href="https://wiki.osdev.org/Stack">stack</a> is a useful way to store variables, we can store a value using the <code>push</code> instruction and get one using the <code>pop</code> instruction. The newest value's position is defines by <code>esp</code> and the start of the stack by <code>ebp</code>.</p>
         <p>Imagine that you want to have an instruction that prints <code>A</code> onto the screen, but we would like to preserve the <code>eax</code> register, so we will do it like this: </p>
         <div class="code">
-            <span class="function">puta:</span><br>
-                <span class="keyword">push</span> eax<br>
-                <span class="keyword">mov</span> ah, <span class="int">0x0E</span><br>
-                <span class="keyword">mov</span> al, <span class="string">'A'</span><br>
-                <span class="keyword">int</span> <span class="int">0x10</span><br>
-                <span class="keyword">pop</span> eax<br>
-                <span class="keyword">ret</span> ; ret is a instruction to get the last value on the stack, and return there
+<pre><span class="function">puta:</span>
+    <span class="keyword">push</span> eax
+    <span class="keyword">mov</span> ah, <span class="int">0x0E</span>
+    <span class="keyword">mov</span> al, <span class="string">'A'</span>
+    <span class="keyword">int</span> <span class="int">0x10</span>
+    <span class="keyword">pop</span> eax
+    <span class="keyword">ret</span> <span class="comment">; ret is an instruction to get the last value on the stack, and return there</span></pre>
         </div>
         <p>Now if we want to use the function, we will use <code>call puta</code>, the instruction pushes the current position onto the stack and jumps to <code>puta</code>.</p>
 
@@ -55,19 +55,19 @@
         <hr>
         <p>To create a putchar function we can do it like this: </p>
         <div class="code">
-            <span class="function">start:</span><br>
-                <span class="keyword">mov</span> al, <span class="string">'H'</span><br>
-                <span class="keyword">call</span> putchar<br>
-                <span class="keyword">mov</span> al, <span class="string">'i'</span><br>
-                <span class="keyword">call</span> putchar<br>
-                <span class="keyword">jmp</span> $<br>
-                <br>
-            <span class="function">putchar:</span><br>
-                <span class="keyword">push</span> eax<br>
-                <span class="keyword">mov</span> ah, <span class="int">0x0e</span><br>
-                <span class="keyword">int</span> <span class="int">0x10</span><br>
-                <span class="keyword">pop</span> eax<br>
-                <span class="keyword">ret</span>
+<pre><span class="function">start:</span>
+    <span class="keyword">mov</span> al, <span class="string">'H'</span>
+    <span class="keyword">call</span> <span class="function">putchar</span>
+    <span class="keyword">mov</span> al, <span class="string">'i'</span>
+    <span class="keyword">call</span> <span class="function">putchar</span>
+    <span class="keyword">jmp</span> $
+
+<span class="function">putchar:</span>
+    <span class="keyword">push</span> eax
+    <span class="keyword">mov</span> ah, <span class="int">0x0e</span>
+    <span class="keyword">int</span> <span class="int">0x10</span>
+    <span class="keyword">pop</span> eax
+    <span class="keyword">ret</span></pre>
         </div>
         <p>Now we have a little function that prints a character, but it still isn't really useful, so lets make a puts function.</p>
 
@@ -76,59 +76,59 @@
         <p>To make a puts function, we still have to learn a few things.</p>
         <h4>1. defining a string</h4>
         <p>Strings, is just a pointer to a group of characters, so to define <code>string1</code>, we can use db (define byte, byte = char), like this:</p>
-        <div class="code">
-            <span class="function">string1:</span><br>
-                <span class="keyword">db</span> <span class="string">"Technoblade"</span>, <span class="int">0</span>
+        <div class="code"><pre>
+<span class="function">string1:</span>
+    <span class="keyword">db</span> <span class="string">"Technoblade"</span>, <span class="int">0</span></pre>
         </div>
         <p>Notice how I also defined a 0 in the end of the code. 0 is commonly used as a string end character, which means (as it's name), the end of a string</p>
 
         <h4>2. conditions</h4>
         <p>To do a simple statement like this:</p>
         <div class="code">
-            <span class="keyword">if</span> (eax == <span class="int">0</span>) {<br>
-                eax++;<br>
-            }
+<pre><span class="keyword">if</span> (eax == <span class="int">0</span>) {
+    eax++;
+}</pre>
         </div>
         <p>We would need to use the <code>cmp</code> command, like this:</p></span>
         <div class="code">
-            <span class="function">compare:</span><br>
-                <span class="keyword">cmp</span> eax, <span class="int">0</span> <span class="comment">; Can be understood as get the relationships between the value in eax and 0</span><br>
-                <span class="keyword">jne</span> end <span class="comment">; Jump if not equal</span><br>
-                <span class="keyword">add</span> eax, <span class="int">1</span> <span class="comment">; This gets executed only if eax is equal to zero></span><br>
-            <span class="function">end:</span>
+<pre><span class="function">compare:</span>
+    <span class="keyword">cmp</span> eax, <span class="int">0</span> <span class="comment">; Can be understood as get the relationships between the value in eax and 0</span>
+    <span class="keyword">jne</span> end <span class="comment">; Jump if not equal</span>
+    <span class="keyword">add</span> eax, <span class="int">1</span> <span class="comment">; This gets executed only if eax is equal to zero></span>
+<span class="function">end:</span></pre>
         </div>
 
         <h4>3. Implementation</h4>
         <p>This will be our <code>boot/boosect.asm</code> now:</p>
         <div class="code">
-            <span class="keyword">org</span> <span class="int">0x7C00</span><br>
-            <br>
-            <span class="function">start:</span><br>
-                <span class="keyword">mov</span> edi, string <span class="comment">; Store the position of our string into edi</span><br>
-                <span class="keyword">call</span> puts <span class="comment">; Call the function</span><br>
-                <span class="keyword">jmp</span> $<br>
-            <br>
-            <span class="function">puts:</span> <span class="comment">; Our print function</span><br>
-                <span class="keyword">push</span> eax <span class="comment">; Store the registers</span><br>
-                <span class="keyword">push</span> edi<br>
-                <span class="keyword">mov</span> ah, <span class="int">0x0E</span><br>
-            <span class="function">.loop:</span><br>
-                <span class="keyword">mov</span> al, [edi] <span class="comment">; Store the stuff in memory position edi to al</span><br>
-                <span class="keyword">cmp</span> al, <span class="int">0</span><br>
-                <span class="keyword">je</span> end <span class="comment">; If al is equal to 0, goto end</span><br>
-                <span class="keyword">int</span> 0x10<br>
-                <span class="keyword">inc</span> edi<br>
-                <span class="keyword">jmp</span> .loop<br>
-            <span class="function">end:</span><br>
-                <span class="keyword">pop</span> edi<br>
-                <span class="keyword">pop</span> eax<br>
-                <span class="keyword">ret</span><br>
-            <br>
-            <span class="function">string:</span><br>
-                <span class="keyword">db</span> <span class="string">"Hello world!"</span>, <span class="int">0</span><br>
-            <br>
-            <span class="keyword">times</span> <span class="int">510</span>-($-$$) <span class="keyword">db</span> <span class="int">0</span> <span class="comment">; Padding and magic number</span><br>
-            <span class="keyword">dw</span> <span class="int">0xaa55</span>
+<pre><span class="keyword">org</span> <span class="int">0x7C00</span> 
+ 
+<span class="function">start:</span> 
+    <span class="keyword">mov</span> di, <span class="function">string</span> <span class="comment">; Store the position of our string into edi</span>
+    <span class="keyword">call</span> <span class="function">puts</span> <span class="comment">; Call the function</span>
+    <span class="keyword">jmp</span> $ 
+ 
+<span class="function">puts:</span> <span class="comment">; Our print function</span> 
+    <span class="keyword">push</span> eax <span class="comment">; Store the registers</span> 
+    <span class="keyword">push</span> di 
+    <span class="keyword">mov</span> ah, <span class="int">0x0E</span> 
+<span class="function">.loop:</span> 
+    <span class="keyword">mov</span> al, [di] <span class="comment">; Store the stuff in memory position edi to al</span> 
+    <span class="keyword">cmp</span> al, <span class="int">0</span> 
+    <span class="keyword">je</span> <span class="function">end</span> <span class="comment">; If al is equal to 0, goto end</span>
+    <span class="keyword">int</span> <span class="int">0x10</span>
+    <span class="keyword">inc</span> di 
+    <span class="keyword">jmp</span> <span class="function">.loop</span>
+<span class="function">end:</span> 
+    <span class="keyword">pop</span> di 
+    <span class="keyword">pop</span> eax 
+    <span class="keyword">ret</span> 
+ 
+<span class="function">string:</span> 
+    <span class="keyword">db</span> <span class="string">"Hello world!"</span>, <span class="int">0</span> 
+ 
+<span class="keyword">times</span> <span class="int">510</span>-($-$$) <span class="keyword">db</span> <span class="int">0</span> <span class="comment">; Padding and magic number</span> 
+    <span class="keyword">dw</span> <span class="int">0xaa55</span></pre>
         </div>
         <p>Now re-compile the bootsector and run it in qemu, you will see that we now have <code>Hello world!</code> printed on the screen like <a href="functions.html">this</a>!</p>
 
@@ -137,5 +137,5 @@
         <p style="float: right !important;"><a href="segmentation.html">Next</a></p>
     </div>
     <br>
-    <p style="color:white;">© 2022 Cyao - <a href="mailto:cyao@duck.com">cyao@duck.com</a></p>
+    <p style="color:white;">&#169 2022 Cyao - <a href="mailto:cyao@duck.com">cyao@duck.com</a></p>
 </body>
