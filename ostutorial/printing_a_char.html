@@ -27,6 +27,8 @@
                 <li><a href="boot.html">Bootloader</a></li>
                 <li><a href="printing_a_char.html">Printing a character</a></li>
                 <li><a href="functions.html">Functions</a></li>
+                <li><a href="segmentation.html">Segmentation</a></li>
+                <li><a href="disk.html">Disk</a></li>
             </ol>
         </div>
 
@@ -34,8 +36,8 @@
 
         <h2>Interrupts</h2>
         <hr>
-        <p>When the computer boots, the BIOS initializes some <a href="https://en.wikipedia.org/wiki/BIOS_interrupt_call">standard interrupts</a> (<a href="http://www.ctyme.com/intr/int.htm">Here is a full list of interrupts</a>).</p>
-        <p><a href="https://www.ctyme.com/intr/rb-0106.htm">int 0x10</a> is the interrupt for video services, the <code>ah</code> <a href="https://wiki.osdev.org/CPU_Registers_x86-64">register</a> represents the function code, what we want to use, is <a href="http://www.ctyme.com/intr/rb-0106.htm">int 0x10, ah = 0x0E</a>
+        <p>When the computer boots, the BIOS initializes some <a href="https://en.wikipedia.org/wiki/BIOS_interrupt_call">standard interrupts</a> (<a href="https://www.ctyme.com/intr/int.htm">Here is a full list of interrupts</a>).</p>
+        <p><a href="https://www.ctyme.com/intr/rb-0106.htm">int 0x10</a> is the interrupt for video services, the <code>ah</code> <a href="https://wiki.osdev.org/CPU_Registers_x86-64">register</a> (the higher half of ax register) represents the function code, what we want to use, is <a href="https://www.ctyme.com/intr/rb-0106.htm">int 0x10, ah = 0x0E</a>
         which is teletype output</p>
 
         <h2>Implementing</h2>
