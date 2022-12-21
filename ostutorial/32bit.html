@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<head>
+    <link rel="stylesheet" type="text/css" href="../styles/template.css">
+    <link href="https://fonts.googleapis.com/css?family=Fira+Code" rel="stylesheet">
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-D60T9JB9VF"></script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9820857411010099"
+            crossorigin="anonymous"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-N59S8PHG5L');
+    </script>
+    <title>32 bit mode</title>
+</head>
+<body>
+<header>
+    <h1>Cyao's page</h1>
+    <p class="home"><a href="../index.html">Home</a></p>
+</header>
+<div class="main">
+    <h1 class="title">7. 32 bit mode</h1>
+    <div class="contents" style="float: right;">
+        <ol>
+            <li><a href="environment.html">Environment</a></li>
+            <li><a href="boot.html">Bootloader</a></li>
+            <li><a href="printing_a_char.html">Printing a character</a></li>
+            <li><a href="functions.html">Functions</a></li>
+            <li><a href="segmentation.html">Segmentation</a></li>
+            <li><a href="disk.html">Disk</a></li>
+            <li><a href="32bit.html">32 bit mode</a></li>
+        </ol>
+    </div>
+
+    <p>Until now our OS was in 16 bit mode or called <a href="https://wiki.osdev.org/Real_Mode">Real mode</a>.
+        Real mode limits our registers to 16 bit values, and uses segmentation, so we can only store values up to 65535,
+        and we can only access a little over 1 MB of memory. We might want to use more memory and store bigger values,
+        so we would need to switch to 32 bit <a href="https://wiki.osdev.org/Protected_Mode">protected mode</a>
+        (or even 64 bit mode, but it's way too complex for now).</p>
+
+    <h2>A20 pin</h2>
+    <hr>
+    <p>The A20 pin is a feature that nobody wants, CPU manufactures continues to produce it. It is a feature that will
+        enable/disable the 0x100000 address bit, If we don't enable it, we would only be able to address odd address bits
+        (Well expect on virtual machines and a small amount of real machines, they enable it by default)</p>
+
+    <p>We enable it like this: </p>
+    <div class="code" translate="no">
+        <span class="keyword">in</span> al, <span class="int">0x92</span><br>
+        <span class="keyword">test</span> al, <span class="int">2</span><br>
+        <span class="keyword">jnz</span> <span class="function">.after</span><br>
+        <span class="keyword">or</span> al, <span class="int">2</span><br>
+        <span class="keyword">and</span> al, <span class="int">0xFE</span><br>
+        <span class="keyword">out</span> <span class="int">0x92, al</span><br>
+        <span class="function">.after:</span>
+    </div>
+    <p>Note: this code doesn't work on all computers, see <a href="https://wiki.osdev.org/A20_Line">here</a> on how to enable it reliably.</p>
+
+    <h2><a href="https://wiki.osdev.org/Global_Descriptor_Table">Global Descriptor Table</a></h2>
+    <hr>
+    <p>After the A20 pin is enabled we can load the gdt. The gdt is a binary data structure telling the CPU about memory
+        <a href="https://wiki.osdev.org/Segmentation#Protected_Mode">segments</a>. We will define the easiest gdt possible -
+        one that has only 2 segments.</p>
+
+    <div class="code" translate="no">
+        <pre>
+<span class="function">GDT:</span>
+    <span class="function">.Null:</span>
+        <span class="keyword">dq</span> <span class="int">0</span>
+    <span class="function">.Code:</span>
+        <span class="keyword">dw</span> <span class="int">0xffff   </span> <span class="comment" translate="yes">; segment limit, bits 0-15</span>
+        <span class="keyword">dw</span> <span class="int">0x0000   </span> <span class="comment" translate="yes">; segment base, bits 0-15</span>
+        <span class="keyword">db</span> <span class="int">0x00     </span> <span class="comment" translate="yes">; segment base, bits 16-23</span>
+        <span class="keyword">db</span> <span class="int">10011010b</span> <span class="comment" translate="yes">; flags (8 bits)</span>
+        <span class="keyword">db</span> <span class="int">11001111b</span> <span class="comment" translate="yes">; flags (4 bits) + limit, bits 16-19</span>
+        <span class="keyword">db</span> <span class="int">0x00     </span> <span class="comment" translate="yes">; segment base, bits 24-31</span>
+    <span class="function">.Data:</span>
+        <span class="keyword">dw</span> <span class="int">0xffff</span>
+        <span class="keyword">dw</span> <span class="int">0x0000</span>
+        <span class="keyword">db</span> <span class="int">0x00</span>
+        <span class="keyword">db</span> <span class="int">10010010b</span>
+        <span class="keyword">db</span> <span class="int">11001111b</span>
+        <span class="keyword">db</span> <span class="int">0x00</span>
+    <span class="function">.Pointer:</span>
+        <span class="keyword">dw</span> <span class="int">GDT</span>.<span class="function">Pointer</span> - <span class="int">GDT</span> - <span class="int">1</span>
+        <span class="keyword">dd</span> <span class="int">GDT</span></pre>
+    </div>
+    <p>This is the gdt, you can see what flags I used from <a href="https://wiki.osdev.org/Global_Descriptor_Table#Segment_Descriptor">here</a>.</p>
+
+    <p>Now we need to load the gdt and go to protected mode, we can do it like this:</p>
+
+    <div class="code" translate="no">
+<pre>
+<span class="int">GDT_DATA</span> <span class="keyword">equ</span> <span class="int">GDT</span>.<span class="function">Data</span> - <span class="int">GDT</span>
+<span class="int">GDT_CODE</span> <span class="keyword">equ</span> <span class="int">GDT</span>.<span class="function">Code</span> - <span class="int">GDT</span>
+
+    <span class="keyword">cli</span> <span class="comment">; Clear interrupts</span>
+    <span class="keyword">lgdt</span> [<span class="int">GDT</span>.<span class="function">Pointer</span>] <span class="comment">; load gdt</span>
+    <span class="keyword">mov</span> eax, cr0
+    <span class="keyword">or</span> eax, <span class="int">1</span> <span class="comment">; Set protected mode enable bit</span>
+    <span class="keyword">mov</span> cr0, eax
+    <span class="keyword">jmp</span> <span class="int">GDT_CODE</span>:<span class="function">init_pm</span> <span class="comment">; Far jump - automatically sets cs to the segment it's jumping to</span>
+
+<span class="keyword">bits</span> <span class="int">32</span>
+<span class="function">init_pm:</span>
+    <span class="keyword">mov</span> ax, <span class="int">GDT_DATA</span> <span class="comment">; Load all segments except cs with data segment</span>
+    <span class="keyword">mov</span> ds, ax
+    <span class="keyword">mov</span> ss, ax
+    <span class="keyword">mov</span> es, ax
+    <span class="keyword">mov</span> fs, ax
+    <span class="keyword">mov</span> gs, ax
+</pre>
+    </div>
+
+    <p>Now we are in 32 bit mode, but all the interrupts are broken, we will learn how to print onto the screen in 32 bit mode in the next chapter.</p>
+
+    <p><a href="https://github.com/cheyao/cheyao.github.io/tree/master/ostutorial/src/32bit/">Code till now</a></p>
+    <p style="float: left !important; display: inline;"><a href="disk.html">Back</a></p>
+    <p style="float: right !important;"><a href="32bit.html">Next</a></p>
+</div>
+<br>
+<p style="color:white;">&#169 2022 Cyao - <a href="mailto:cyao@duck.com">cyao@duck.com</a></p>
+</body>

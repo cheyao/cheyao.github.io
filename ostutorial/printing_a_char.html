@@ -29,6 +29,7 @@
                 <li><a href="functions.html">Functions</a></li>
                 <li><a href="segmentation.html">Segmentation</a></li>
                 <li><a href="disk.html">Disk</a></li>
+                <li><a href="32bit.html">32 bit mode</a></li>
             </ol>
         </div>
 
@@ -43,8 +44,9 @@
         <h2>Implementing</h2>
         <hr>
         <p>In the interrupt function, al is containing the <a href="https://en.wikipedia.org/wiki/ASCII">ascii code</a> of the letter, we can get the ascii by putting a character inside apostrophes. Now this is our boot/bootsect.asm:</p>
-        <div class="code">
+        <div class="code" translate="no">
             <span class="keyword">org</span> <span class="int">0x7C00</span><br>
+            <span class="keyword">bits</span> <span class="int">16</span> <span class="comment">; Tell nasm we are in 16 bit mode</span><br>
             <span class="keyword">mov</span> ah, <span class="int">0x0e</span><br>
             <br>
             <span class="keyword">mov</span> al, <span class="string">'H'</span><br>
@@ -60,8 +62,8 @@
             <br>
             <span class="keyword">jmp</span> $<br>
             <br>
-            <span class="keyword">times</span> <span class="int">510</span> - ($ - $$) <span class="keyword">db</span> <span class="int">0</span> <span class="comment">; Fill with 510 zeros minus the size of the previous code</span><br>
-            <span class="keyword">dw</span> <span class="int">0xaa55</span> <span class="comment">; The magic number</span>
+            <span class="keyword">times</span> <span class="int">510</span> - ($ - $$) <span class="keyword">db</span> <span class="int">0</span> <span class="comment" translate="yes">; Fill with 510 zeros minus the size of the previous code</span><br>
+            <span class="keyword">dw</span> <span class="int">0xaa55</span> <span class="comment" translate="yes">; The magic number</span>
         </div>
         <p>The <code>mov</code> instruction moves the value in the second argument to the register in the first register.</p>
 

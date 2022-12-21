@@ -29,6 +29,7 @@
                 <li><a href="functions.html">Functions</a></li>
                 <li><a href="segmentation.html">Segmentation</a></li>
                 <li><a href="disk.html">Disk</a></li>
+                <li><a href="32bit.html">32 bit mode</a></li>
             </ol>
         </div>
 
@@ -37,10 +38,11 @@
 
         <h2>Creating the bootsector</h2>
         <hr>
-        <p>Create a directory called <code>boot</code> and a file inside it called <code>bootsector.asm</code> and paste the following code into it:</p>
+        <p>Create a directory called <code>boot</code> and a file inside it called <code>bootsect.asm</code> and paste the following code into it:</p>
 
-        <div class="code asm">
+        <div class="code asm" translate="no">
             <span class="keyword">org</span> <span class="int">0x7C00</span><br>
+            <span class="keyword">bits</span> <span class="int">16</span> <span class="comment">; Tell nasm we are in 16 bit mode</span><br>
             <span class="keyword">jmp</span> $<br>
             <br>
             <span class="keyword">times</span> <span class="int">510</span> - ($ - $$) <span class="keyword">db</span> <span class="int">0</span> <span class="comment">; Fill with 510 zeros minus the size of the previous code</span><br>

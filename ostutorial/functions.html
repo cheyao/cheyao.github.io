@@ -10,7 +10,7 @@
     
       gtag('config', 'G-N59S8PHG5L');
     </script>
-    <title>Environment</title>
+    <title>Functions</title>
 </head>
 <body>
     <header>
@@ -27,6 +27,7 @@
                 <li><a href="functions.html">Functions</a></li>
                 <li><a href="segmentation.html">Segmentation</a></li>
                 <li><a href="disk.html">Disk</a></li>
+                <li><a href="32bit.html">32 bit mode</a></li>
             </ol>
         </div>
 
@@ -40,21 +41,21 @@
         <hr>
         <p>The <a href="https://wiki.osdev.org/Stack">stack</a> is a useful way to store variables, we can store a value using the <code>push</code> instruction and get one using the <code>pop</code> instruction. The newest value's position is defines by <code>esp</code> and the start of the stack by <code>ebp</code>.</p>
         <p>Imagine that you want to have an instruction that prints <code>A</code> onto the screen, but we would like to preserve the <code>eax</code> register, so we will do it like this: </p>
-        <div class="code">
+        <div class="code" translate="no">
 <pre><span class="function">puta:</span>
     <span class="keyword">push</span> eax
     <span class="keyword">mov</span> ah, <span class="int">0x0E</span>
     <span class="keyword">mov</span> al, <span class="string">'A'</span>
     <span class="keyword">int</span> <span class="int">0x10</span>
     <span class="keyword">pop</span> eax
-    <span class="keyword">ret</span> <span class="comment">; ret is an instruction to get the last value on the stack, and return there</span></pre>
+    <span class="keyword">ret</span> <span class="comment" translate="yes">; ret is an instruction to get the last value on the stack, and return there</span></pre>
         </div>
         <p>Now if we want to use the function, we will use <code>call puta</code>, the instruction pushes the current position onto the stack and jumps to <code>puta</code>.</p>
 
         <h2>Creating a putchar function</h2>
         <hr>
         <p>To create a putchar function we can do it like this: </p>
-        <div class="code">
+        <div class="code" translate="no">
 <pre><span class="function">start:</span>
     <span class="keyword">mov</span> al, <span class="string">'H'</span>
     <span class="keyword">call</span> <span class="function">putchar</span>
@@ -90,32 +91,33 @@
 }</pre>
         </div>
         <p>We would need to use the <code>cmp</code> command, like this:</p></span>
-        <div class="code">
+        <div class="code" translate="no">
 <pre><span class="function">compare:</span>
-    <span class="keyword">cmp</span> eax, <span class="int">0</span> <span class="comment">; Can be understood as get the relationships between the value in eax and 0</span>
-    <span class="keyword">jne</span> end <span class="comment">; Jump if not equal</span>
-    <span class="keyword">add</span> eax, <span class="int">1</span> <span class="comment">; This gets executed only if eax is equal to zero></span>
+    <span class="keyword">cmp</span> eax, <span class="int">0</span> <span class="comment" translate="yes">; Can be understood as get the relationships between the value in eax and 0</span>
+    <span class="keyword">jne</span> end <span class="comment" translate="yes">; Jump if not equal</span>
+    <span class="keyword">add</span> eax, <span class="int">1</span> <span class="comment" translate="yes">; This gets executed only if eax is equal to zero></span>
 <span class="function">end:</span></pre>
         </div>
 
         <h4>3. Implementation</h4>
         <p>This will be our <code>boot/boosect.asm</code> now:</p>
-        <div class="code">
-<pre><span class="keyword">org</span> <span class="int">0x7C00</span> 
+        <div class="code" translate="no">
+<pre><span class="keyword">org</span> <span class="int">0x7C00</span>
+<span class="keyword">bits</span> <span class="int">16</span> <span class="comment">; Tell nasm we are in 16 bit mode</span><br>
  
 <span class="function">start:</span> 
-    <span class="keyword">mov</span> di, <span class="function">string</span> <span class="comment">; Store the position of our string into edi</span>
-    <span class="keyword">call</span> <span class="function">puts</span> <span class="comment">; Call the function</span>
+    <span class="keyword">mov</span> di, <span class="function">string</span> <span class="comment" translate="yes">; Store the position of our string into edi</span>
+    <span class="keyword">call</span> <span class="function">puts</span> <span class="comment" translate="yes">; Call the function</span>
     <span class="keyword">jmp</span> $ 
  
-<span class="function">puts:</span> <span class="comment">; Our print function</span> 
-    <span class="keyword">push</span> eax <span class="comment">; Store the registers</span> 
+<span class="function">puts:</span> <span class="comment" translate="yes">; Our print function</span>
+    <span class="keyword">push</span> eax <span class="comment" translate="yes">; Store the registers</span>
     <span class="keyword">push</span> di 
     <span class="keyword">mov</span> ah, <span class="int">0x0E</span> 
 <span class="function">.loop:</span> 
-    <span class="keyword">mov</span> al, [di] <span class="comment">; Store the stuff in memory position edi to al</span> 
+    <span class="keyword">mov</span> al, [di] <span class="comment" translate="yes">; Store the stuff in memory position edi to al</span>
     <span class="keyword">cmp</span> al, <span class="int">0</span> 
-    <span class="keyword">je</span> <span class="function">end</span> <span class="comment">; If al is equal to 0, goto end</span>
+    <span class="keyword">je</span> <span class="function">end</span> <span class="comment" translate="yes">; If al is equal to 0, goto end</span>
     <span class="keyword">int</span> <span class="int">0x10</span>
     <span class="keyword">inc</span> di 
     <span class="keyword">jmp</span> <span class="function">.loop</span>
@@ -127,7 +129,7 @@
 <span class="function">string:</span> 
     <span class="keyword">db</span> <span class="string">"Hello world!"</span>, <span class="int">0</span> 
  
-<span class="keyword">times</span> <span class="int">510</span>-($-$$) <span class="keyword">db</span> <span class="int">0</span> <span class="comment">; Padding and magic number</span> 
+<span class="keyword">times</span> <span class="int">510</span>-($-$$) <span class="keyword">db</span> <span class="int">0</span> <span class="comment" translate="yes">; Padding and magic number</span>
     <span class="keyword">dw</span> <span class="int">0xaa55</span></pre>
         </div>
         <p>Now re-compile the bootsector and run it in qemu, you will see that we now have <code>Hello world!</code> printed on the screen like <a href="functions.html">this</a>!</p>
