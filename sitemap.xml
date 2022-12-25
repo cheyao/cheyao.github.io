@@ -2,67 +2,47 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
         <loc>https://cyao.page/</loc>
-        <lastmod>2022-12-04T08:36:10+00:00</lastmod>
+        <lastmod>2022-12-25T08:36:10+00:00</lastmod>
         <priority>1.00</priority>
     </url>
     <url>
         <loc>https://cyao.page/index.html</loc>
-        <lastmod>2022-12-04T08:36:10+00:00</lastmod>
+        <lastmod>2022-12-25T08:36:10+00:00</lastmod>
         <priority>0.80</priority>
     </url>
     <url>
         <loc>https://cyao.page/ostutorial/index.html</loc>
-        <lastmod>2022-12-21T08:36:10+00:00</lastmod>
-        <priority>0.80</priority>
-    </url>
-    <url>
-        <loc>https://cyao.page/blog/index.html</loc>
-        <lastmod>2022-12-04T08:36:10+00:00</lastmod>
+        <lastmod>2022-12-25T08:36:10+00:00</lastmod>
         <priority>0.80</priority>
     </url>
     <url>
         <loc>https://cyao.page/ostutorial/environment.html</loc>
-        <lastmod>2022-12-21T08:36:10+00:00</lastmod>
+        <lastmod>2022-12-25T08:36:10+00:00</lastmod>
         <priority>0.64</priority>
     </url>
     <url>
         <loc>https://cyao.page/ostutorial/boot.html</loc>
-        <lastmod>2022-12-21T08:36:10+00:00</lastmod>
+        <lastmod>2022-12-25T08:36:10+00:00</lastmod>
         <priority>0.64</priority>
     </url>
     <url>
         <loc>https://cyao.page/ostutorial/printing_a_char.html</loc>
-        <lastmod>2022-12-21T08:36:10+00:00</lastmod>
+        <lastmod>2022-12-25T08:36:10+00:00</lastmod>
         <priority>0.64</priority>
     </url>
     <url>
         <loc>https://cyao.page/ostutorial/segmentation.html</loc>
-        <lastmod>2022-12-21T08:36:10+00:00</lastmod>
+        <lastmod>2022-12-25T08:36:10+00:00</lastmod>
         <priority>0.64</priority>
     </url>
     <url>
         <loc>https://cyao.page/ostutorial/disk.html</loc>
-        <lastmod>2022-12-21T08:36:10+00:00</lastmod>
+        <lastmod>2022-12-25T08:36:10+00:00</lastmod>
         <priority>0.64</priority>
     </url>
     <url>
         <loc>https://cyao.page/ostutorial/32bit.html</loc>
-        <lastmod>2022-12-21T08:36:10+00:00</lastmod>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://cyao.page/blog/2022/12/post-01.html</loc>
-        <lastmod>2022-12-04T08:36:10+00:00</lastmod>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://cyao.page/blog/2022/12/index.html</loc>
-        <lastmod>2022-12-04T08:36:10+00:00</lastmod>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://cyao.page/blog/category/random.html</loc>
-        <lastmod>2022-12-04T08:36:10+00:00</lastmod>
+        <lastmod>2022-12-25T08:36:10+00:00</lastmod>
         <priority>0.64</priority>
     </url>
 </urlset>
