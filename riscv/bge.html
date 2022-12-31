@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML Basic 1.1//EN" "http://www.w3.org/TR/xhtml-basic/xhtml-basic11.dtd">
+<html>
+<head>
+	<link rel="stylesheet" type="text/css" href="../styles/instructions.css" />
+	<title>BEQ: Branch if grater or equall (RISC-V Instruction Set Reference)</title>
+
+	<meta name="keywords" content="assembly,asm,programming,optimization,optimisation,bge,bgeu,c,rv32i,RISC-V,instruction_set_reference_main_entries,opcode,opcodes,dictionary,risc"/>
+	<meta name="description" content="RISC-V"/>
+</head>
+<body>
+	<div class="main_container"><h1>RISC-V Instruction Set Reference</h1>
+	<h1>BGE</h1>
+	<h2>Branch if grater or equal</h2>
+	<object>
+		<table class="box">
+			<tr>
+				<th>Mnemonic</th>
+				<th>Description</th>
+			</tr>
+			<tr>
+				<td class="grid"><code>BGE rs1, rs2, imm12</code></td>
+				<td class="grid">Add imm12 to pc if rs1 is greater or equal to rs2.</td>
+			</tr>
+			<tr>
+				<td class="grid"><code>BGEU rs1, rs2, imm12</code></td>
+				<td class="grid">Add imm12 to pc if rs1 is greater or equal to rs2 (unsigned).</td>
+			</tr>
+		</table>
+	</object>
+	<object>
+		<table class="box">
+			<tr>
+				<th>Description</th>
+			</tr>
+			<tr>
+				<td class="instruction_set_reference_box">
+					<p>Add imm12 to pc if rs1 is greater or equal to rs2.</p>
+				</td>
+			</tr>
+		</table>
+	</object>
+	<object>
+		<table class="box">
+			<tr>
+				<th>Operation</th>
+			</tr>
+			<tr>
+				<td class="instruction_set_reference_box">
+<pre>
+<span class="keyword">if</span> <span class="operator">(</span>rs1 <span class="operator">>=</span> rs2<span class="operator">)</span>
+    pc <span class="operator">+=</span> imm12<span class="operator">;</span>
+</pre>
+				</td>
+			</tr>
+		</table>
+	</object>
+	</div>
+</body>
+</html>
