@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML Basic 1.1//EN" "http://www.w3.org/TR/xhtml-basic/xhtml-basic11.dtd">
+<html>
+<head>
+	<link rel="stylesheet" type="text/css" href="../styles/instructions.css" />
+	<title>BEQ: Branch if equal (RISC-V Instruction Set Reference)</title>
+
+	<meta name="keywords" content="assembly,asm,programming,optimization,optimisation,beq,c,rv32i,RISC-V,instruction_set_reference_main_entries,opcode,opcodes,dictionary,risc"/>
+	<meta name="description" content="RISC-V"/>
+</head>
+<body>
+	<div class="main_container"><h1>RISC-V Instruction Set Reference</h1>
+	<h1>Bcc</h1>
+	<h2>Branch if cc</h2>
+	<object>
+		<table class="box">
+			<tr>
+				<th>Mnemonic</th>
+				<th>Description</th>
+			</tr>
+			<tr>
+				<td class="grid"><code>BEQ rs1, rs2, rel12</code></td>
+				<td class="grid">Add rel12 to pc if rs1 and rs2 are equal.</td>
+			</tr>
+			<tr>
+				<td class="grid"><code>BNE rs1, rs2, rel12</code></td>
+				<td class="grid">Add rel12 to pc if rs1 is not equal to rs2.</td>
+			</tr>
+			<tr>
+				<td class="grid"><code>BLT rs1, rs2, rel12</code></td>
+				<td class="grid">Add rel12 to pc if rs1 is less than rs2.</td>
+			</tr>
+			<tr>
+				<td class="grid"><code>BGE rs1, rs2, rel12</code></td>
+				<td class="grid">Add rel12 to pc if rs1 is greater or equal to rs2.</td>
+			</tr>
+			<tr>
+				<td class="grid"><code>BLTU rs1, rs2, rel12</code></td>
+				<td class="grid">Add rel12 to pc if rs1 is less than rs2 (unsigned).</td>
+			</tr>
+			<tr>
+				<td class="grid"><code>BGEU rs1, rs2, rel12</code></td>
+				<td class="grid">Add rel12 to pc if rs1 is greater or equal to rs2 (unsigned).</td>
+			</tr>
+			<tr>
+				<th>Pseudoinstructions:</th>
+				<th></th>
+			</tr>
+			<tr>
+				<td class="grid"><code>BEQZ rs, rel12</code></td>
+				<td class="grid">Add rel12 to pc if rs is equal to zero. (Expands to BEQ rs, x0, offset)</td>
+			</tr>
+			<tr>
+				<td class="grid"><code>BNEZ rs, rel12</code></td>
+				<td class="grid">Add rel12 to pc if rs is not equal to zero. (Expands to BNE rs, x0, offset)</td>
+			</tr>
+			<tr>
+				<td class="grid"><code>BLEZ rs, rel12</code></td>
+				<td class="grid">Add rel12 to pc if rs is less than or equal to zero. (Expands to BGE x0, rs, offset)</td>
+			</tr>
+			<tr>
+				<td class="grid"><code>BGEZ rs, rel12</code></td>
+				<td class="grid">Add rel12 to pc if rs is greater or equal to zero. (Expands to BGE rs, x0, offset)</td>
+			</tr>
+			<tr>
+				<td class="grid"><code>BLTZ rs, rel12</code></td>
+				<td class="grid">Add rel12 to pc if rs is less than zero. (Expands to BLT rs, x0, offset)</td>
+			</tr>
+			<tr>
+				<td class="grid"><code>BGTZ rs, rel12</code></td>
+				<td class="grid">Add rel12 to pc if rs is greater than rs2. (Expands to BLT x0, rs, offset)</td>
+			</tr>
+			<tr>
+				<td class="grid"><code>BGT rs, rt, rel12</code></td>
+				<td class="grid">Add rel12 to pc if rs is greater than rt. (Expands to BLT rt, rs, offset)</td>
+			</tr>
+			<tr>
+				<td class="grid"><code>BLE rs, rt, rel12</code></td>
+				<td class="grid">Add rel12 to pc if rs is less or equal to rt. (Expands to BGE rt, rs, offset)</td>
+			</tr>
+			<tr>
+				<td class="grid"><code>BGTU rs, rt, rel12</code></td>
+				<td class="grid">Add rel12 to pc if rs is greater than rt (unsigned). (Expands to BLTU rt, rs, offset)</td>
+			</tr>
+			<tr>
+				<td class="grid"><code>BLEU rs, rt, rel12</code></td>
+				<td class="grid">Add rel12 to pc if rs is less or equal to rt (unsigned). (Expands to BGEU rt, rs, offset)</td>
+			</tr>
+		</table>
+	</object>
+	<object>
+		<table class="box">
+			<tr>
+				<th>Description</th>
+			</tr>
+			<tr>
+				<td class="instruction_set_reference_box">
+					<p>Add rel12 to pc if rs1 and rs2 are cc.</p>
+				</td>
+			</tr>
+		</table>
+	</object>
+	<object>
+		<table class="box">
+			<tr>
+				<th>Operation</th>
+			</tr>
+			<tr>
+				<td class="instruction_set_reference_box">
+<pre>
+<span class="keyword">if</span> <span class="operator">(</span>rs1 <span class="operator">cc</span> rs2<span class="operator">)</span>
+    pc <span class="operator">+=</span> rel12<span class="operator">;</span>
+</pre>
+				</td>
+			</tr>
+		</table>
+	</object>
+	</div>
+</body>
+</html>
