@@ -19,24 +19,50 @@
 				<th>Description</th>
 			</tr>
 			<tr>
-				<td class="grid"><code>JAL rs, imm</code></td>
-				<td class="grid">Jump to imm and link to rs.</td>
+				<td class="grid"><code>JAL rd, offset</code></td>
+				<td class="grid">Jump to offset and link to rd.</td>
 			</tr>
 			<tr>
-				<td class="grid"><code>JALR rs1, rs2</code></td>
-				<td class="grid">Jump to rs2 and link to rs1.</td>
+				<td class="grid"><code>JALR rd, imm12(rs2)</code></td>
+				<td class="grid">Jump to offset rs2 + imm12 and link to rd.</td>
 			</tr>
 			<tr>
 				<th>Pseudoinstructions:</th>
 				<th></th>
 			</tr>
 			<tr>
-				<td class="grid"><code>JAL imm</code></td>
-				<td class="grid">Jump to imm and link to register x1 (ra). (Expands to JALR x1, imm)</td>
+				<td class="grid"><code>J offset</code></td>
+				<td class="grid">Jump (Add rel to pc). (Expands to JAL x0, offset)</td>
+			</tr>
+			<tr>
+				<td class="grid"><code>JR rs</code></td>
+				<td class="grid">Jump to offset rs. (Expands to JALR x0, 0(rs))</td>
+			</tr>
+			<tr>
+				<td class="grid"><code>JAL offset</code></td>
+				<td class="grid">Jump to offset and link to register x1. (Expands to JAL x1, offset)</td>
 			</tr>
 			<tr>
 				<td class="grid"><code>JALR rs</code></td>
-				<td class="grid">Jump to rs and link to register x1 (ra). (Expands to JALR x1, rs)</td>
+				<td class="grid">Jump to rs and link to register x1. (Expands to JALR x1, 0(rs))</td>
+			</tr>
+			<tr>
+				<td class="grid"><code>RET</code></td>
+				<td class="grid">Return from subroutine. (Expands to JALR x0, 0(x1))</td>
+			</tr>
+<!--
+call offset auipc x1, offset[31 : 12] + offset[11] Call far-away subroutine
+            jalr x1, offset[11:0](x1)
+tail offset auipc x6, offset[31 : 12] + offset[11] Tail call far-away subroutine
+            jalr x0, offset[11:0](x6)
+-->
+			<tr>
+				<td class="grid"><code>CALL offset</code></td>
+				<td class="grid">Call far-away subroutine, (Expands to auipc x1, offset[31 : 12] + offset[11]; jalr x1, offset[11:0](x1))</td>
+			</tr>
+			<tr>
+				<td class="grid"><code>TAIL offset</code></td>
+				<td class="grid">Tail call far-away subroutine. (Expands to auipc x6, offset[31 : 12] + offset[11]; jalr x0, offset[11:0](x6))</td>
 			</tr>
 		</table>
 	</object>
@@ -47,7 +73,7 @@
 			</tr>
 			<tr>
 				<td class="instruction_set_reference_box">
-					<p>Jump to imm/rs and store return address in the ra (x1) register, the immediate encodes a signed offset in multiples of 2 byte</p>
+					<p>Jump to offset/rs and store return address in the ra (x1) register, the immediate encodes a signed offset in multiples of 2 byte</p>
 				</td>
 			</tr>
 		</table>
@@ -60,8 +86,8 @@
 			<tr>
 				<td class="instruction_set_reference_box">
 <pre>
-pc <span class="operator">+=</span> imm12<span class="operator">;</span>
-<span class="keyword">goto</span> dest<span class="operator">;</span>
+rd <span class="operator">=</span> pc<span class="operator">;</span>
+pc <span class="operator">+=</span> reg + imm<span class="operator">;</span>
 </pre>
 				</td>
 			</tr>
