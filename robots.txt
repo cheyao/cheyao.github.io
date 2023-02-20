@@ -1,7 +1,0 @@
-User-agent: *
-Disallow: /blog/
-
-User-agent: *
-Allow: /
-
-Sitemap: https://cyao.page/sitemap.xml
