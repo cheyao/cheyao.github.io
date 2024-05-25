@@ -5,10 +5,66 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="color-scheme" content="light dark" />
 	<link rel="stylesheet" href="css/common.css">
-	<title>Hello world!</title>
+	<title>Cyao's site!</title>
     </head>
     <body>
         <main class="container" style="text-align: center">
+		<h1>Cross compiling a SDL3 application from linux for windows</h1>
+		<p>Well a few days ago I made a little test project, and I wanted to compile the project for windows.</p>
+		<p>We are going to use that project as a demo. See the source code here: <a href=https://github.com/cheyao/TileMap">github</a></p>
+		<h2>Installing toolchain</h2>
+		<p>To compile to window, we will need the mingw toolchains, here is how you install it on arch:
+		<code style="text-align: left">
+			$ sudo pacman -S mingw-w64-binutils mingw-w64-headers mingw-w64-gcc # Compilers<br>
+			$ yay -S mingw-w64-cmake mingw-w64-zlib # Cmake, not 100% sure zlib is needed
+		</code>
+
+		<h2>Compiling dependencies</h2>
+		<p>For this project we need SDL3 and SDL3_image, but the AUR doesn't have these packages yet, thus we need to compile them ourselfs</p>
+		<p>First, let's compile SDL</p>
+		<code style="text-align: left">
+			$ git clone https://github.com/libsdl-org/SDL
+			$ cd SDL
+			$ mkdir build && cd build
+			$ x86_64-w64-mingw32-cmake .. # Switch to i686-w64-mingw32-cmake for 32 bit
+			$ make
+			$ make install # the cmake automatically configures the install path to be inside /usr/x86_64-w64-mingw32
+		</code>
+		<p>Now let's compile SDL_image</p>
+		<code style="text-align: left">
+			$ git clone https://github.com/libsdl-org/SDL_image
+			$ cd SDL_image
+			$ mkdir build && cd build
+			$ x86_64-w64-mingw32-cmake .. # The same as SDL
+			$ make
+			$ make install
+		</code>
+		<p>Not hard huh. But when I first tried, I actually made a custom cmake toolchain and stuff, which was stupid and wasted a bunch of time :P</p>
+
+		<h2>Compiling project</h2>
+		<p>Now on to compiling the project!</p>
+		<code style="text-align: left">
+			$ git clone https://github.com/cheyao/TileMap
+			$ cd TileMap
+			$ mkdir build && cd build
+			$ x86_64-w64-mingw32-cmake .. # Still the same!
+			$ make
+		</code>
+		<p>Yay! Now we have a exe, now let's try it out with wine!</p>
+		<code style="text-align: left">
+			$ wine TileMap.exe
+			0124:err:module:import_dll Library libgcc_s_seh-1.dll (which is needed by L"F:\\home\\user\\Developer\\TileMap\\build\\TileMap.exe") not found
+			0124:err:module:import_dll Library libstdc++-6.dll (which is needed by L"F:\\home\\user\\Developer\\TileMap\\build\\TileMap.exe") not found
+			0124:err:module:import_dll Library SDL3.dll (which is needed by L"F:\\home\\user\\Developer\\TileMap\\build\\TileMap.exe") not found
+			0124:err:module:import_dll Library SDL3_image.dll (which is needed by L"F:\\home\\user\\Developer\\TileMap\\build\\TileMap.exe") not found
+			0124:err:module:loader_init Importing dlls for L"F:\\home\\user\\Developer\\TileMap\\build\\TileMap.exe" failed, status c0000135
+		</code>
+		<p>Oh no! A bunch of dll modules missing! We need to copy them from /usr/x86_64-w64-mingw32/ to the build directory:</p>
+		<code style="text-align: left">
+			$ cp /usr/x86_64-w64-mingw32/bin/libgcc_s_seh-1.dll /usr/x86_64-w64-mingw32/bin/libstdc++-6.dll /usr/x86_64-w64-mingw32/bin/SDL3.dll /usr/x86_64-w64-mingw32/bin/SDL3_image.dll /usr/x86_64-w64-mingw32/bin/libwinpthread-1.dll /usr/x86_64-w64-mingw32/bin/libssp-0.dll .
+		</code>
+		<p>And now we have out code running!</p>
+		<img src="cross-compile-windows.png" alt="Result">
         </main>
     </body>
 </html>
